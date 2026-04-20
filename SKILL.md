@@ -1,12 +1,12 @@
 ---
-name: experiment-log
+name: exp-log
 description: |
   Write and maintain structured experiment logs for ML/scientific research projects.
   Ensures every experiment is recorded with motivation, method (with formulas),
   results (with baseline comparison), analysis, and artifact paths.
 
   Use this skill when the user mentions:
-  - "/experiment-log", "记录实验", "写实验日志", "experiment log", "实验记录"
+  - "/exp-log", "/experiment-log", "记录实验", "写实验日志", "experiment log", "实验记录"
   - "记录一下这个实验", "把结果记下来", "log this experiment", "record results"
   - "更新实验日志", "update experiment log", "add to log"
   - "实验失败了记录一下", "log the failure", "记录失败原因"
