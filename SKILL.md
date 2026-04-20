@@ -44,15 +44,25 @@ What is the hypothesis being tested?
 - Algorithm description or pseudocode
 - Hyperparameters table
 - Diff vs previous version (only list changes, don't repeat)
+- **Data**: split method (by city/image/patch?), sizes, version
+- **Changed variables**: list EXACTLY what changed vs baseline (single-variable?)
+- **Train-test gap**: note if training and inference use different procedures
 
 #### Results
 - Quantitative results table (MUST include baseline comparison column)
+- **Uncertainty**: mean +/- std, CI, or N runs (single-run results must be flagged)
+- **Fair comparison check**: same data, same thresholds, same post-processing?
 - Figure/plot paths: `output/figures/xxx.png`
 - Bold the key numbers
 
 #### Analysis
 - Did results match the hypothesis?
 - If failed: root cause, what hypothesis was ruled out, what constraint was established
+- **Conclusion strength**: mark each claim as one of:
+  - **Established**: supported by controlled experiment + statistical test
+  - **Supported**: consistent evidence but missing some controls
+  - **Preliminary**: single run, limited data, or confounded variables
+  - **Hypothesis**: reasonable guess, needs verification
 - Impact on next steps (→ points to next EXP-ID)
 
 #### Artifacts
@@ -156,6 +166,13 @@ Scan the experiment log for:
 - Missing artifact paths
 - Experiments without motivation sections
 - Duplicated content across sections
+- **Missing data split description** (how was train/val/test divided?)
+- **Single-run results without uncertainty** (no mean±std, no CI)
+- **Multi-variable changes** claimed as single-factor conclusions
+- **Conclusions marked as "established" without statistical tests**
+- **Proxy metrics** used without linking to end-goal metrics
+- **Missing fair comparison conditions** (different thresholds, data, post-processing)
+- **Train-test mismatch** not documented (e.g., training uses mask X but inference doesn't)
 
 ### `/experiment-log extract`
 Extract material for a specific purpose:
@@ -205,3 +222,9 @@ The experiment log is a single markdown file (typically `EXPERIMENT_LOG.md`) at 
 4. **Duplicate content**: Same experiment described in both §5 and §7 — creates inconsistency.
 5. **Missing motivation**: Jumping straight to method without explaining WHY this experiment was attempted.
 6. **Prose-only failures**: "It didn't work because X" — missing the decision tree (what was excluded, what constraint was learned, what comes next).
+7. **Multi-variable changes claimed as single-factor**: Changed data + code + hyperparams simultaneously, then attributed improvement to one factor. Must list ALL changed variables.
+8. **Overconfident conclusions from single runs**: "Method A is better" based on 0.008 Dice difference without confidence intervals. Flag single-run results explicitly.
+9. **Proxy metrics mistaken for end-goal**: Optimizing Dice/SSIM/right-angle-rate without verifying that the actual research objective (e.g., tracking quality) improved.
+10. **Unfair comparisons**: Comparing methods with different thresholds, data splits, post-processing, or evaluation scripts. Every comparison table must state what was held constant.
+11. **Test set hacking**: Repeatedly viewing test results and adjusting methods → test set becomes dev set. Note which datasets have been used for development vs final evaluation.
+12. **Missing data split description**: Not stating whether train/val/test are split by city, image, or random patch — critical for spatial data where adjacent patches leak information.
