@@ -8,6 +8,11 @@ from pathlib import Path
 
 ID_PATTERN = re.compile(r"^P\d-[A-Z0-9]+(?:-[A-Z0-9]+)*-\d{2}$")
 PHASES = ("planned", "frozen", "running", "complete")
+IGNORED_PARTS = {"__pycache__", ".git", ".pytest_cache", ".mypy_cache"}
+
+
+def is_ignored(path: Path) -> bool:
+    return bool(IGNORED_PARTS.intersection(path.parts))
 
 
 def any_match(root: Path, patterns: tuple[str, ...]) -> list[str]:
@@ -16,7 +21,7 @@ def any_match(root: Path, patterns: tuple[str, ...]) -> list[str]:
         return []
     for pattern in patterns:
         for path in root.rglob(pattern):
-            if path.is_file():
+            if path.is_file() and not is_ignored(path.relative_to(root)):
                 matches.add(path.relative_to(root).as_posix())
     return sorted(matches)
 
@@ -117,7 +122,7 @@ def validate(package: Path, phase: str) -> dict:
 
     prohibited = []
     for path in package.rglob("*"):
-        if not path.is_file():
+        if not path.is_file() or is_ignored(path.relative_to(package)):
             continue
         stem = path.stem.lower()
         if re.search(r"(^|[_-])(final|latest|new2?)([_-]|$)", stem):

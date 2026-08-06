@@ -57,6 +57,23 @@ class ValidateExperimentPackageTests(unittest.TestCase):
             self.assertTrue(report["ok"], report)
             self.assertTrue(any("does not match" in item for item in report["warnings"]))
 
+    def test_cache_files_are_ignored(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            package = Path(temp) / "P0-MODEL-01"
+            (package / "inputs").mkdir(parents=True)
+            cache = package / "code" / "__pycache__"
+            cache.mkdir(parents=True)
+            (package / "EXPERIMENT_LOG.md").write_text("record", encoding="utf-8")
+            (package / "code" / "run_formal.py").write_text("", encoding="utf-8")
+            (cache / "build_latest.cpython-313.pyc").write_bytes(b"cache")
+
+            report = validate(package, "planned")
+
+            self.assertNotIn(
+                "__pycache__/build_latest.cpython-313.pyc", report["found"]["builders"]
+            )
+            self.assertEqual(report["found"]["unstable_names"], [])
+
 
 if __name__ == "__main__":
     unittest.main()
