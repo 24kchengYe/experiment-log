@@ -1,57 +1,100 @@
 ---
 name: exp-log
-description: Write, update, synchronize, and audit reproducible Experiment Logs, evidence-backed Experiment Guides, dated Run records, frozen dataset/model Versions, evaluation reports, Rubric versions, multi-stage pipeline traces, reusable skills extracted from verified experiments, and explicitly requested paper drafts. Use for “实验记录”, “实验日志”, “实验指南”, “研究叙事”, “数据版本说明”, “评测报告”, “Rubric构造”, “从实验提取技能”, “记录这个实验”, “整理实验结论”, “写论文”, “experiment log”, “experiment guide”, completed training/evaluation/ablation runs, artifact lineage, or turning experiments into defensible findings and reusable workflows. Supports record, guide, sync, audit, promote, rubric, extract-skill, failure, update, extract, and explicit paper modes while preserving /exp-log and /experiment-log compatibility.
+description: Design, freeze, run, resume, record, promote, audit, and synthesize reproducible scientific experiments, experiment packages, dataset/model versions, evaluations, Rubrics, and research narratives from one traceable evidence base; also extract verified repeated workflows into reusable skills. Use whenever a task involves 实验记录、实验日志、实验包、实验编号、冻结协议、失败账本、运行清单、完成审计、实验指南、研究叙事、数据版本说明、评测报告、Rubric构造、从实验提取技能、结果整理、论文实验部分, experiment logs, experiment packages, experiment guides, ablations, evaluations, failed or interrupted runs, artifact lineage, multi-stage pipeline traces, or evidence-backed paper writing. Supports record and synthesis modes plus record, failure, update, guide, sync, audit, promote, rubric, extract-skill, extract, and explicit paper routes while preserving /exp-log and /experiment-log compatibility.
 ---
 
-# Experiment Log + Guide
+# Experiment Log
 
-Maintain several views of the same evidence without confusing their purposes.
+Maintain one evidence base through two working modes.
 
-- **Experiment Log** (`EXPERIMENT_LOG.md`) is the factual source of truth: what ran, why, with which data, code, prompt, model, metrics, outputs, and failures.
-- **Experiment Guide / Research Narrative** (`EXPERIMENT_GUIDE.md`) explains the research problem, evidence chain, retained decisions, limitations, and next questions to a reader.
-- **Paper draft** is a publication-oriented transformation of the same evidence. Enter this mode only when the user explicitly requests a paper, manuscript, or paper section.
+1. **Record mode** preserves what was planned, frozen, executed, returned, analyzed, and audited. Its unit is an experiment package with immutable identifiers and traceable artifacts.
+2. **Synthesis mode** explains what the accumulated experiments show. Its default artifact is an Experiment Guide; a paper, manuscript section, response, or presentation is an explicitly requested publication output of the same mode.
 
-The Guide may tell a coherent story. It must not invent continuity, certainty, causality, or contributions that the Log does not support. Paper mode is never inferred from a request to record or summarize experiments.
+The modes have different information density. Record mode may include operational failures, commands, hashes, and exact paths. Synthesis mode keeps only the evidence needed to understand the research question, comparison, result, meaning, and boundary.
 
 ## Route the request
 
-| User intent | Mode | Primary output |
-|---|---|---|
-| Record a completed or failed run | `record` / `failure` | Experiment Log |
-| Update status, metrics, paths, or conclusions | `update` | Experiment Log |
-| Explain what the experiments now show | `guide` | Experiment Guide |
-| Keep factual and narrative views aligned | `sync` | Log first, then Guide if material |
-| Check correctness, traceability, or contradictions | `audit` | Audit findings and corrections |
-| Locate or repackage existing evidence | `extract` | Requested index, table, or summary |
-| Promote validated Run output to an immutable Version | `promote` | Version bundle and lineage contract |
-| Construct, audit, freeze, or migrate evaluation rules | `rubric` | Rubric Guide, registry, prompts, and manifest |
-| Turn a verified repeated workflow into a reusable skill | `extract-skill` | Skill package with tests and evidence anchors |
-| Write a paper or manuscript section | `paper` | Explicitly requested paper artifact |
+| User intent | Route | Working mode | Primary output |
+|---|---|---|---|
+| Plan or freeze a new experiment | `record` | Record | Experiment package and frozen inputs |
+| Continue, resume, or monitor a run | `update` | Record | Run manifest, response ledger, status update |
+| Record a completed or failed run | `record` / `failure` | Record | Package `EXPERIMENT_LOG.md` and artifacts |
+| Check completeness, arithmetic, paths, or contradictions | `audit` | Record | Audit findings or completion audit |
+| Explain what the experiments now show | `guide` | Synthesis | Experiment Guide |
+| Align factual and reader-facing views | `sync` | Record, then synthesis | Log update and authorized Guide update |
+| Locate or repackage evidence | `extract` | Either | Requested index, table, or summary |
+| Promote validated Run output to an immutable Version | `promote` | Record | Version bundle and lineage contract |
+| Construct, audit, freeze, or migrate evaluation rules | `rubric` | Record | Rubric Guide, registry, prompts, and manifest |
+| Turn a verified repeated workflow into a reusable skill | `extract-skill` | Record | Skill package with tests and evidence anchors |
+| Write a paper, response, abstract, or named section | `paper` | Synthesis | Explicitly requested publication artifact |
 
-After a substantive experiment, default to `sync`: record the experiment first, then apply the Guide impact gate. For a small metadata/path correction, update only the Log unless the correction changes a claim.
+A request to run or record an experiment does not authorize a Guide or paper rewrite. After a material result, report whether the Guide would change. Update it only when the user requested `guide`/`sync` or has already authorized automatic synchronization. If the project requires confirmation, propose the affected claims and wait.
 
-## Shared workflow
+## Select the governing references
 
-1. **Discover the evidence**
-   - Inspect the current Log, Guide, manifests, configs, prompts, datasets, evaluation outputs, and code.
-   - Prefer primary artifacts over old narrative summaries.
-   - Map inputs, runs, versions, analysis, prompts, and share artifacts before treating similarly named files as equivalent.
-2. **Identify the unit of record**
-   - Assign or preserve an `EXP-ID`.
-   - State the research question, baseline, changed variables, evaluation unit, and data split.
-3. **Write the factual record first**
-   - Follow [record-mode.md](references/record-mode.md).
-   - Record exact paths, versions, denominators, failures, and comparison conditions.
-4. **Classify evidence strength**
-   - `Established`: controlled evidence with the needed statistical support.
-   - `Supported`: consistent evidence with relevant controls, but not definitive.
-   - `Preliminary`: limited runs/data or remaining confounders.
-   - `Hypothesis`: plausible explanation awaiting a direct test.
-5. **Run the Guide impact gate**
-   - Follow [guide-mode.md](references/guide-mode.md) only when new evidence materially changes the reader-facing account.
-6. **Audit the views**
-   - Follow [sync-audit.md](references/sync-audit.md).
-   - A Guide or paper claim must resolve to an `EXP-ID`, table, metric, or artifact in the Log.
+- For experiment identity, P0–P3 stages, package layout, versions, run states, freezing, execution, and completion audits, read [experiment-package.md](references/experiment-package.md).
+- For factual experiment records, read [record-mode.md](references/record-mode.md).
+- For Experiment Guides and research narratives, read [guide-mode.md](references/guide-mode.md).
+- For an explicitly requested publication artifact, also read [paper-mode.md](references/paper-mode.md).
+- For cross-document consistency or audits, read [sync-audit.md](references/sync-audit.md).
+
+When a filesystem-backed experiment package is available, use `scripts/validate_experiment_package.py <path> --phase planned|frozen|running|complete` as a structural check. Treat its output as an audit aid, not a substitute for reading scientific contracts and results.
+
+## Record-mode workflow
+
+1. **Discover the current contract**
+   - Inspect existing package IDs, stage legend, logs, manifests, prompts, configs, data, code, raw outputs, analysis, and project instructions.
+   - Map inputs, runs, promoted versions, analysis, prompts, and shared artifacts before treating similarly named files as equivalent.
+   - Preserve an established naming system. Do not mass-rename historical experiments unless explicitly requested.
+2. **Define the experiment unit**
+   - Assign one stable Experiment ID to one scientific question and design family.
+   - Separate package identity from model, route, condition, replicate, timestamp, and analysis version.
+3. **Freeze before formal outputs**
+   - Freeze the question, estimand, unit, fixed denominator, conditions, exclusions, retry policy, analysis contract, and claim boundary.
+   - Hash or otherwise version the design inputs and code needed to reconstruct the run.
+4. **Validate with a fixture or technical gate**
+   - Test schemas, parsers, hooks, model loading, file paths, and no-op behavior without consuming formal units.
+   - Keep technical amendments versioned and distinguish them from scientific design changes.
+5. **Execute append-only**
+   - Preserve every registered attempt, successful output, technical failure, and recovery action.
+   - Do not retry, regenerate, exclude, or select outputs based on observed scientific results unless the frozen policy permits it.
+6. **Analyze from the frozen contract**
+   - Keep raw outputs, parsed data, unit-level estimands, summary tables, and figures separable.
+   - Define metrics, units, denominators, uncertainty, baselines, and changed variables.
+7. **Audit completion**
+   - Account for the fixed denominator and verify missing, duplicate, unknown, or orphaned artifacts.
+   - Record procedural status, evidentiary result, and claim eligibility separately.
+8. **Update the factual record**
+   - Write observation before interpretation and link every claim to its primary artifact.
+
+## Synthesis-mode workflow
+
+1. Establish the evidence boundary from completed or explicitly labeled preliminary packages.
+2. Write one sentence stating the research question and strongest supported answer.
+3. Build a claim–evidence map before prose: claim, comparison, result, denominator, uncertainty, Experiment ID, and scope.
+4. Organize by research question and evidence chain, not by execution date or tool history.
+5. Prefer a compact result table when the same fields repeat across conditions, indicators, theories, or datasets.
+6. Explain physical meaning and units before parameter names. A conclusion must say what changed or was learned, not merely that estimates were produced.
+7. Include a limitation only when it changes interpretation, applicability, or the next decision. Preserve mandatory disclosures without appending a generic weakness inventory.
+8. Keep commands, endpoints, retry history, local paths, and routine HTTP counts in Record mode unless they alter the evidence boundary.
+9. Run a hostile-review pass: narrow claims that exceed the measured sample, model, route, protocol, or comparison, while retaining the scientific value that remains supported.
+
+## Evidence strength and status
+
+Use evidence labels when they help a decision or resolve ambiguity; do not repeat them mechanically after every paragraph.
+
+- `Established`: controlled evidence with the required statistical and procedural support.
+- `Supported`: consistent evidence with relevant controls but a remaining limitation.
+- `Preliminary`: incomplete denominator, limited run, pilot, or unresolved confounder.
+- `Hypothesis`: proposed explanation awaiting a direct test.
+
+Never collapse the following into one status:
+
+- **Procedural status**: whether the registered work completed as specified.
+- **Evidentiary result**: whether the result supports, partly supports, contradicts, or leaves the hypothesis unresolved.
+- **Claim eligibility**: whether the result belongs in the main text, SI, diagnostic record, or no-claim archive.
+
+A null result is not a run failure. A completed API run is not evidence for the hypothesis. A provider-limit stop is procedural and does not define a scientific result.
 
 ## Load specialized rules only when needed
 
@@ -73,52 +116,56 @@ Update the Guide when new evidence changes at least one of:
 - an important limitation, trade-off, or evidence boundary;
 - next-step priority.
 
-If none changes, leave the Guide untouched and report: `Guide: no material change`.
+If none changes, report `Guide: no material change`. If change is material but authorization is absent, report the affected section and proposed claim without editing it.
 
 ## Document contracts
 
 ### Experiment Log
 
-The Log is appendable, reproducible, and exact. It may contain negative results, operational details, and unresolved contradictions. Use [EXPERIMENT_LOG_TEMPLATE.md](assets/EXPERIMENT_LOG_TEMPLATE.md) for the project ledger and [RUN_EXPERIMENT_TEMPLATE.md](assets/RUN_EXPERIMENT_TEMPLATE.md) for a standalone run record.
+The package Log is appendable, reproducible, and exact. It may contain negative results, operational details, and unresolved contradictions. Use [EXPERIMENT_LOG_TEMPLATE.md](assets/EXPERIMENT_LOG_TEMPLATE.md) for a package or project ledger and [RUN_EXPERIMENT_TEMPLATE.md](assets/RUN_EXPERIMENT_TEMPLATE.md) for a standalone run record. A project-level index may link package IDs and primary artifacts but should not duplicate every package entry.
 
 Each experiment requires:
 
-- `EXP-ID`, date, status, and relevant git/version identifiers;
+- Experiment ID, date, the three status axes, and relevant git/version identifiers;
 - motivation and falsifiable hypothesis;
 - data source, split, sample counts, and evaluation unit;
 - method and every variable changed from the named baseline;
 - results with metric definitions and denominators;
 - interpretation separated from observation;
 - evidence strength and comparison limitations;
-- exact code, prompt, config, data, model, report, and output paths.
+- exact code, prompt, config, data, model, report, and output paths;
+- frozen input manifest, immutable attempt/output ledger, failure ledger, run manifest, and completion audit when applicable.
 
 ### Experiment Guide
 
-The Guide is concise, evidence-forward, and organized by research question rather than execution date. Use [EXPERIMENT_GUIDE_TEMPLATE.md](assets/EXPERIMENT_GUIDE_TEMPLATE.md). Each important claim includes its scope, evidence and denominator, supporting `EXP-ID` or artifact, evidence strength, and practical implication or uncertainty.
+The Guide is concise and organized by research question rather than execution date. Use [EXPERIMENT_GUIDE_TEMPLATE.md](assets/EXPERIMENT_GUIDE_TEMPLATE.md). Repeated comparisons belong in interpretable tables with definitions and units. Evidence-strength labels are optional when scope and support are already clear; do not turn them into repetitive boilerplate.
 
-### Paper
+### Publication outputs
 
-Use [paper-mode.md](references/paper-mode.md) only after an explicit paper request. Paper mode may organize a contribution narrative, but all quantitative claims, comparisons, and limitations remain traceable to the Log. If venue, section, or audience is unclear, produce a neutral research-paper draft rather than assuming a venue.
+Use [paper-mode.md](references/paper-mode.md) only after an explicit paper request. Paper writing is a synthesis output, not a third factual mode. It may organize a contribution narrative, but all quantitative claims, comparisons, and limitations remain traceable to the package evidence. If venue, section, or audience is unclear, produce a neutral research-paper draft rather than assuming a venue.
 
 ## Commands
 
-- `/exp-log record` — add a completed experiment.
-- `/exp-log failure` — record a failed run and the constraint learned.
-- `/exp-log update` — update an existing experiment.
-- `/exp-log guide` — refresh the reader-facing Guide from the Log.
-- `/exp-log sync` — update the Log, run the impact gate, then audit both views.
-- `/exp-log audit` — check missing evidence, arithmetic, paths, versions, and contradictions.
-- `/exp-log extract` — produce a path index, comparison table, timeline, slides outline, or requested view.
+- `/exp-log record` — plan, freeze, or record an experiment package.
+- `/exp-log failure` — preserve a failed or interrupted attempt and the constraint learned.
+- `/exp-log update` — update progress, metrics, paths, or status.
+- `/exp-log guide` — synthesize the evidence into an Experiment Guide.
+- `/exp-log sync` — update the Record, apply the impact gate, then update the Guide if authorized.
+- `/exp-log audit` — check package completeness, provenance, arithmetic, versions, and cross-document claims.
+- `/exp-log extract` — produce an index, comparison table, timeline, source table, slides outline, or requested view.
 - `/exp-log promote` — promote validated Run output to a frozen data/model Version.
 - `/exp-log rubric` — construct, audit, freeze, or migrate a Rubric version.
 - `/exp-log extract-skill` — extract a stable, tested workflow from verified experiments.
-- `/exp-log paper` — draft or revise a paper artifact; explicit user request required.
+- `/exp-log paper` — draft or revise an explicitly requested publication artifact.
 
 ## Completion check
 
-- Verify every new number against its source; make units and denominators explicit.
-- Name the exact baseline and changed variables.
-- Distinguish observation, interpretation, and hypothesis.
-- Ensure file links and artifact paths resolve.
-- Ensure Guide and paper claims do not exceed Log evidence.
-- Report which views changed and which did not.
+- Every new number resolves to a primary artifact; units and denominators are explicit.
+- Experiment ID, Attempt ID, run version, and analysis version are not conflated.
+- The baseline and every changed variable are named.
+- Formal inputs were frozen before formal outputs, or the deviation is disclosed.
+- Registered attempts, failures, retries, and exclusions follow the frozen policy.
+- Observation, interpretation, explanation, and hypothesis remain distinct.
+- Package paths resolve and completion status is auditable.
+- Guide or paper claims do not exceed the Record evidence.
+- Report which record, guide, paper, or repository surfaces changed and which did not.

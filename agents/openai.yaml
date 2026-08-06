@@ -1,7 +1,7 @@
 interface:
-  display_name: "Experiment Log + Guide"
-  short_description: "维护可复现实验记录、数据版本、Rubric与可复用技能"
-  default_prompt: "Use $exp-log to record the dated run, promote validated versions, engineer traceable Rubrics, and extract reusable skills from verified experiments."
+  display_name: "Experiment Record + Guide"
+  short_description: "管理实验包、数据版本、Rubric、评测审计与证据叙事"
+  default_prompt: "Use $exp-log in record mode to preserve frozen experiment packages, artifact and version lineage, evaluation and Rubric contracts, completion audits, or verified skill extraction; use synthesis mode only for an authorized Guide or publication artifact."
 
 policy:
   allow_implicit_invocation: true

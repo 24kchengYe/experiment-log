@@ -5,7 +5,7 @@
 1. Update the Experiment Log from primary artifacts.
 2. Recalculate affected summaries and indices.
 3. Run the Guide impact gate in `SKILL.md`.
-4. If material, update the Guide's affected claims, evidence strength, decisions, and traceability links.
+4. If material and authorized, update the Guide's affected claims, comparisons, decisions, and traceability links. If confirmation is required, propose the change without editing.
 5. Update paper artifacts only when the user explicitly requested paper work.
 6. Run the audit below and report changed/unchanged views.
 
@@ -14,8 +14,17 @@
 ### Traceability
 
 - Every Guide or paper number resolves to a Log entry and primary artifact.
-- Every retained recommendation names its supporting `EXP-ID`s.
+- Every retained recommendation names its supporting Experiment IDs.
 - Paths exist or are clearly marked unavailable/remote.
+- Experiment ID, design version, Attempt ID, run version, and analysis version are not conflated.
+
+### Package integrity
+
+- Formal inputs and analysis rules were frozen before formal outputs, or the deviation is disclosed.
+- Registered attempts equal terminal records plus genuinely uncalled attempts.
+- Successful outputs, technical failures, exclusions, and retries match the frozen policy.
+- Run manifests, failure ledgers, analysis summaries, source tables, and completion audits agree.
+- `complete` is used only when the required outputs and audit checks are complete; compound incomplete states remain explicit.
 
 ### Arithmetic and units
 
@@ -39,6 +48,7 @@
 - Reused test sets and multiple comparisons are disclosed.
 - Single runs are not presented as stable improvements.
 - Causal attribution matches the variables controlled.
+- Provider/route changes are not treated as model replication unless the model identity is verified.
 
 ### Narrative consistency
 
@@ -46,6 +56,8 @@
 - Evidence-strength labels match the Log.
 - “Current,” “best,” and “default” refer to one identified version.
 - Next steps respond to unresolved evidence rather than repeating completed work.
+- Operational details are omitted from the Guide unless they change the denominator, missingness, model identity, or claim boundary.
+- Conclusions state an interpretable pattern or decision rather than merely announcing that estimates were produced.
 
 ## Audit output
 

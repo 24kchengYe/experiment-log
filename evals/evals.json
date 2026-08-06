@@ -1,0 +1,41 @@
+{
+  "skill_name": "exp-log",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "一个400项的正式API实验在286项时因为额度停止。我已经充值，请从检查点继续，成功和失败都不能重试，完成后自动分析，但实验指南必须等我确认才能更新。",
+      "expected_output": "Resume in Record mode from immutable terminal records, distinguish called failures from uncalled attempts, arrange analysis and completion audit, update the package log, and only report the proposed Guide impact.",
+      "files": [],
+      "expectations": [
+        "Uses Record mode and does not edit the Guide without authorization",
+        "Preserves all 286 terminal records and calls only previously uncalled Attempt IDs",
+        "Separates provider-limit procedural status from the scientific result",
+        "Requires analysis and a completion audit before marking the package complete"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "给一个新项目设计实验编号和目录。项目有模型准备、数据生成、外部干预和内部表征四个阶段，每项实验还会有不同模型路线和100次重复。不要把模型名和日期塞进实验编号。",
+      "expected_output": "Define a stable stage–domain–task Experiment ID scheme, keep route/model/replicate in lower-level identifiers, and scaffold frozen inputs, code, outputs, analysis, logs, and audits.",
+      "files": [],
+      "expectations": [
+        "Defines the P0–P3 stage legend or an equally explicit project-specific legend",
+        "Separates Experiment ID, design version, Attempt ID, run version, and analysis version",
+        "Includes frozen inputs, immutable outputs, failure ledger, run manifest, analysis, and completion audit",
+        "Avoids final/latest/new naming and silent overwrite"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "根据已经完成的四类benchmark更新实验指南。每类都有baseline、完整方案、实证参照和若干SI消融。指南要短、能直接指导正文和附录修改，不要写HTTP调用流水账，也不要每段都重复Strength/Meaning/Boundary。",
+      "expected_output": "Use Synthesis mode to organize a concise research-question-first guide with comparable result tables, interpretable definitions and units, main findings in the core sections, ablations in SI, and traceable Experiment IDs.",
+      "files": [],
+      "expectations": [
+        "Organizes the Guide by research question and comparable experiment paths rather than chronology",
+        "Uses compact tables for baseline, complete treatment or blueprint, and empirical reference",
+        "Moves routine execution details and non-leading ablations out of the main narrative",
+        "States interpretable conclusions instead of mechanical evidence-label boilerplate"
+      ]
+    }
+  ]
+}

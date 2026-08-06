@@ -1,42 +1,75 @@
-# {Project} Experiment Log
+# {EXPERIMENT-ID}: {Experiment title}
 
-> Factual source of truth. Last updated: YYYY-MM-DD.
+> Package-level factual source of truth. Last updated: YYYY-MM-DD.
 
-## 1. Scope and unit definitions
+## 1. Question and unit definitions
 
-- Research objective:
+- Scientific question:
+- Hypothesis and decision rule:
 - Evaluation unit:
-- Positive/negative definition:
+- Registered denominator:
 - Dataset and split conventions:
+- Allowed and forbidden claims:
 
-## 2. Experiments by research question
+## 2. Design and freeze
 
-### EXP-1.1: {Title}
+- Baseline and changed variables:
+- Conditions and controls:
+- Missing, exclusion, and retry policy:
+- Primary estimand and uncertainty:
+- Design version:
+- Input freeze manifest:
+
+## 3. Execution status
 
 **Date**: YYYY-MM-DD
+**Procedural status**: planned / frozen / running / stopped / complete / failed
+**Evidentiary result**: not_analyzed / supports / partly_supports / mixed / null / contradicts / inconclusive
+**Claim eligibility**: main_text / SI / diagnostic / pilot_only / no_claim
+**Git / versions**:
 
-**Status**: planned / in_progress / complete / failed
-**Git / version**:
+- Registered attempts:
+- Terminal records:
+- Successful outputs:
+- Retained failures:
+- Uncalled attempts:
+- Resume or amendment history:
 
-#### Motivation and hypothesis
+## 4. Results
 
-#### Method and data
+- Metric and unit definitions:
+- Statistical unit and denominator:
+- Main comparison table:
+- Exceptions and sensitivity results:
 
-#### Results
+## 5. Interpretation and decision
 
-#### Analysis
+- Observation:
+- Interpretation:
+- Alternative explanations:
+- Evidence strength: Established / Supported / Preliminary / Hypothesis
+- Decision and next Experiment ID:
 
-**Evidence strength**: Established / Supported / Preliminary / Hypothesis
+## 6. Artifacts
 
-#### Artifacts
+- Inputs and freeze manifest:
+- Code and environment:
+- Raw/canonical outputs:
+- Run manifest and failure ledger:
+- Parsed data and unit estimands:
+- Analysis summary and source tables:
+- Completion audit:
+- Figures and provenance:
 
-## 3. Cross-question conclusions
+## 7. Engineering and technical amendments
 
-## 4. Engineering and data fixes
+## 8. Package event log
 
-## 5. Next experiments
+| Timestamp | Event | Affected version | Formal attempts affected | Evidence consequence |
+|---|---|---|---:|---|
+| | | | | |
 
-## 6. Experiment index
+## Project-level experiment index template
 
-| EXP-ID | Question | Status | Key result | Primary artifact |
-|---|---|---|---|---|
+| Experiment ID | Question | Procedural status | Evidentiary result | Claim eligibility | Primary artifact |
+|---|---|---|---|---|---|
