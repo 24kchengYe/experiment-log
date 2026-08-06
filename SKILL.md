@@ -1,6 +1,6 @@
 ---
 name: exp-log
-description: Write, update, synchronize, and audit reproducible Experiment Logs, evidence-backed Experiment Guides or research narratives, dataset/model version records, evaluation reports, multi-stage pipeline traces, and explicitly requested paper drafts from one traceable evidence base. Use for “实验记录”, “实验日志”, “实验指南”, “研究叙事”, “数据版本说明”, “评测报告”, “记录这个实验”, “整理实验结论”, “同步记录和指南”, “写论文”, “experiment log”, “experiment guide”, completed training/evaluation/ablation runs, failed experiments, artifact lineage, or turning accumulated experiments into defensible findings. Supports record, guide, sync, audit, failure, update, extract, and explicit paper modes while preserving /exp-log and /experiment-log compatibility.
+description: Write, update, synchronize, and audit reproducible Experiment Logs, evidence-backed Experiment Guides, dated Run records, frozen dataset/model Versions, evaluation reports, Rubric versions, multi-stage pipeline traces, reusable skills extracted from verified experiments, and explicitly requested paper drafts. Use for “实验记录”, “实验日志”, “实验指南”, “研究叙事”, “数据版本说明”, “评测报告”, “Rubric构造”, “从实验提取技能”, “记录这个实验”, “整理实验结论”, “写论文”, “experiment log”, “experiment guide”, completed training/evaluation/ablation runs, artifact lineage, or turning experiments into defensible findings and reusable workflows. Supports record, guide, sync, audit, promote, rubric, extract-skill, failure, update, extract, and explicit paper modes while preserving /exp-log and /experiment-log compatibility.
 ---
 
 # Experiment Log + Guide
@@ -23,6 +23,9 @@ The Guide may tell a coherent story. It must not invent continuity, certainty, c
 | Keep factual and narrative views aligned | `sync` | Log first, then Guide if material |
 | Check correctness, traceability, or contradictions | `audit` | Audit findings and corrections |
 | Locate or repackage existing evidence | `extract` | Requested index, table, or summary |
+| Promote validated Run output to an immutable Version | `promote` | Version bundle and lineage contract |
+| Construct, audit, freeze, or migrate evaluation rules | `rubric` | Rubric Guide, registry, prompts, and manifest |
+| Turn a verified repeated workflow into a reusable skill | `extract-skill` | Skill package with tests and evidence anchors |
 | Write a paper or manuscript section | `paper` | Explicitly requested paper artifact |
 
 After a substantive experiment, default to `sync`: record the experiment first, then apply the Guide impact gate. For a small metadata/path correction, update only the Log unless the correction changes a claim.
@@ -56,6 +59,8 @@ After a substantive experiment, default to `sync`: record the experiment first, 
 - When creating or revising a training/test/annotation/model version, read [dataset-versioning.md](references/dataset-versioning.md) and use [DATA_VERSION_TEMPLATE.md](assets/DATA_VERSION_TEMPLATE.md).
 - For evaluation, ablation, reviewer-stability, semantic review, or root-cause analysis, read [evaluation-reporting.md](references/evaluation-reporting.md) and use [EVALUATION_REPORT_TEMPLATE.md](assets/EVALUATION_REPORT_TEMPLATE.md).
 - For multi-stage model/tool pipelines with retries, checkpoints, or partial release states, read [pipeline-traceability.md](references/pipeline-traceability.md) and use [RUN_EXPERIMENT_TEMPLATE.md](assets/RUN_EXPERIMENT_TEMPLATE.md).
+- For Rubric construction, atomicity, calibration, freezing, or migration, read [rubric-engineering.md](references/rubric-engineering.md) and use [RUBRIC_VERSION_TEMPLATE.md](assets/RUBRIC_VERSION_TEMPLATE.md).
+- When a verified experimental method should become a reusable skill, read [skill-extraction.md](references/skill-extraction.md). Use the environment's skill-creation workflow to package and validate it.
 
 ## Guide impact gate
 
@@ -104,6 +109,9 @@ Use [paper-mode.md](references/paper-mode.md) only after an explicit paper reque
 - `/exp-log sync` — update the Log, run the impact gate, then audit both views.
 - `/exp-log audit` — check missing evidence, arithmetic, paths, versions, and contradictions.
 - `/exp-log extract` — produce a path index, comparison table, timeline, slides outline, or requested view.
+- `/exp-log promote` — promote validated Run output to a frozen data/model Version.
+- `/exp-log rubric` — construct, audit, freeze, or migrate a Rubric version.
+- `/exp-log extract-skill` — extract a stable, tested workflow from verified experiments.
 - `/exp-log paper` — draft or revise a paper artifact; explicit user request required.
 
 ## Completion check
