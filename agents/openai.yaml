@@ -1,0 +1,7 @@
+interface:
+  display_name: "Experiment Log + Guide"
+  short_description: "同步可复现实验记录、证据叙事与显式论文写作"
+  default_prompt: "Use $exp-log to update the factual experiment record first, synchronize material changes into the research guide, and audit both views. Enter paper mode only when explicitly requested."
+
+policy:
+  allow_implicit_invocation: true
