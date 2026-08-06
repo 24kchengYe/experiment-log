@@ -11,6 +11,13 @@
 
 论文写作不是第三套事实，也不是默认模式；它只是“研究叙事”在论文场景下的显式输出形式。
 
+## 中文主规范与英文兼容层
+
+- `SKILL.zh-CN.md` 是当前中文主规范，集中定义 Record、Synthesis、实验包生命周期和证据组织规则。
+- `references/*.zh-CN.md` 与 `assets/*.zh-CN.md` 是对应的中文专项规则和模板。
+- `SKILL.md` 及未带语言后缀的英文文件作为跨设备兼容层保留；技能触发后会先完整读取中文主规范。双语内容如有差异，以中文主规范为准，并将差异视为需要修复的版本漂移。
+- 原 `evidence-forward-paper-writing` 中有价值的贡献主线、claim–evidence map、hostile-review、必要限制和跨论文表面一致性规则，已经并入 Synthesis 与显式出版材料模式。
+
 ```text
 原始产物（代码、配置、数据、预测、评测报告）
                     │
@@ -239,8 +246,10 @@ git pull
 ```text
 experiment-log/
 ├── SKILL.md                         # 两种工作模式、路由和主工作流
+├── SKILL.zh-CN.md                   # 中文主规范
 ├── references/
 │   ├── experiment-package.md       # 编号、目录、冻结、执行、状态和审计
+│   ├── experiment-package.zh-CN.md # 中文实验包合同
 │   ├── record-mode.md              # 真实记录规则
 │   ├── guide-mode.md               # 研究叙事规则
 │   ├── paper-mode.md               # 显式论文模式
@@ -250,14 +259,16 @@ experiment-log/
 │   ├── pipeline-traceability.md    # 多阶段调用、断点与成本
 │   ├── rubric-engineering.md       # 兼容入口：转交独立 Rubric Skill
 │   ├── skill-extraction.md         # 从实验提取可复用 Skill
-│   └── sync-audit.md               # 同步与审计规则
+│   ├── sync-audit.md               # 同步与审计规则
+│   └── *.zh-CN.md                  # 上述各专项规则的中文版本
 ├── assets/
 │   ├── EXPERIMENT_LOG_TEMPLATE.md
 │   ├── EXPERIMENT_GUIDE_TEMPLATE.md
 │   ├── RUN_EXPERIMENT_TEMPLATE.md
 │   ├── DATA_VERSION_TEMPLATE.md
 │   ├── EVALUATION_REPORT_TEMPLATE.md
-│   └── RUBRIC_VERSION_TEMPLATE.md  # 兼容入口，不再维护规则模板
+│   ├── RUBRIC_VERSION_TEMPLATE.md  # 兼容入口，不再维护规则模板
+│   └── *.zh-CN.md                  # 上述各模板的中文版本
 ├── scripts/
 │   └── validate_experiment_package.py # 只读检查编号、冻结、输出和完成审计
 ├── tests/

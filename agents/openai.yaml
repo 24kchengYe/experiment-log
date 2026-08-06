@@ -1,7 +1,7 @@
 interface:
   display_name: "Experiment Record + Guide"
   short_description: "管理实验包、数据版本、评测审计、完成检查与证据叙事"
-  default_prompt: "Use $exp-log in record mode to preserve frozen experiment packages, artifact and version lineage, evaluation contracts, completion audits, or verified skill extraction; use synthesis mode only for an authorized Guide or publication artifact."
+  default_prompt: "使用 $exp-log，并优先读取中文主规范：Record模式保存冻结实验包、产物与版本血缘、评测合同和完成审计；只有已获授权时才用Synthesis模式更新指南或出版材料。"
 
 policy:
   allow_implicit_invocation: true

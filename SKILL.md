@@ -1,9 +1,13 @@
 ---
 name: exp-log
-description: Design, freeze, run, resume, record, promote, audit, and synthesize reproducible scientific experiments, experiment packages, dataset/model versions, evaluations, and research narratives from one traceable evidence base; also extract verified repeated workflows into reusable skills. Use whenever a task involves 实验记录、实验日志、实验包、实验编号、冻结协议、失败账本、运行清单、完成审计、实验指南、研究叙事、数据版本说明、评测报告、从实验提取技能、结果整理、论文实验部分, experiment logs, experiment packages, experiment guides, ablations, evaluations, failed or interrupted runs, artifact lineage, multi-stage pipeline traces, rubric-version provenance, or evidence-backed paper writing. Supports record and synthesis modes plus record, failure, update, guide, sync, audit, promote, extract-skill, extract, and explicit paper routes while preserving /exp-log and /experiment-log compatibility.
+description: 从同一套可追溯证据出发，设计、冻结、执行、续跑、记录、提升、审计和综合科研实验、实验包、数据/模型版本、评测与研究叙事，并可把已验证流程提炼为技能。凡任务涉及实验记录、实验日志、实验包、实验编号、冻结协议、失败账本、运行清单、完成审计、实验指南、研究叙事、数据版本说明、评测报告、结果整理、论文实验部分、审稿回复，或英文 experiment log、experiment package、experiment guide、ablation、evaluation、artifact lineage、pipeline traceability、rubric-version provenance、evidence-backed paper writing，均应使用本技能。支持 Record 与 Synthesis 两种模式及 record、failure、update、guide、sync、audit、promote、extract-skill、extract 和显式 paper 路由；兼容 /exp-log 与 /experiment-log。
 ---
 
 # Experiment Log
+
+## 中文主规范
+
+本技能的中文主规范为 [SKILL.zh-CN.md](SKILL.zh-CN.md)。每次触发本技能时，在采取任务行动前完整读取该文件；需要专项规则时，优先读取其中指向的 `*.zh-CN.md`。本文件其余英文内容作为兼容层保留。若双语表述出现差异，以中文主规范为准，并修复英文兼容层的漂移。
 
 Maintain one evidence base through two working modes.
 

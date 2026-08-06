@@ -36,6 +36,18 @@
         "Moves routine execution details and non-leading ablations out of the main narrative",
         "States interpretable conclusions instead of mechanical evidence-label boilerplate"
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "根据完成的实验包修改论文结果和讨论。结果里有一个强主效应、一个零结果和一个只在最大规模下反向的敏感性结果。请围绕最强证据组织主线，但不能隐藏零结果或必要限制，也不要写成实验流水账或泛化弱点清单。",
+      "expected_output": "使用Synthesis与显式出版材料规则，先建立贡献主线和claim–evidence map；正文突出最强可支持结果，零结果和反向敏感性按其对解释的实际影响进入正文或SI，并保留必要披露。",
+      "files": [],
+      "expectations": [
+        "围绕最强可支持贡献组织，而不是平均罗列实验",
+        "不隐藏不利证据、零结果或会改变解释的限制",
+        "执行hostile-review并收窄超出证据的主张",
+        "避免AI式防御性弱点清单和工作日志叙事"
+      ]
     }
   ]
 }
