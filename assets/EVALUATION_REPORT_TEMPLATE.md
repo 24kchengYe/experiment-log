@@ -8,9 +8,12 @@ State the fixed evaluation scope and the strongest supported conclusion.
 
 | Item | Value |
 |---|---|
-| Evaluation unit / N | |
+| Evaluation-set name / frozen version | |
+| Source / sampling rule / evaluation purpose | |
+| Evaluation unit / registered N / adjudicable N | |
 | Positive class | |
-| GT source and version | |
+| Gold / GT source and version | |
+| Gold protocol (model, prompt, review count, vote/adjudication, unresolved) | |
 | Dataset / split | |
 | Model / checkpoint / endpoint | |
 | System/User Prompt and schema | |
@@ -38,7 +41,7 @@ Separate data/GT, prompt/rule, model capability, parsing/schema, and evaluation-
 
 ## Comparison validity and evidence boundary
 
-State what was held constant, what changed, test reuse, proxy-Gold limitations, and evidence strength.
+State what was held constant, what changed, test reuse, proxy-Gold limitations, and evidence strength. For cross-dataset comparisons, expose source, sampling controls, registered/adjudicable denominators, and purpose before interpreting metric differences.
 
 ## Artifacts
 

@@ -40,6 +40,8 @@ Adapt the columns to the study. For generation experiments, a useful sequence is
 - Preserve meaningful tensions; do not force inconsistent experiments into one conclusion.
 - Distinguish a measured result from a proposed explanation.
 - Define every metric, parameter, and physical unit at first use, then reuse one stable, readable name. Do not leave conclusions in parameter shorthand that a domain reader cannot interpret.
+- Name the dataset, Gold/reference-label protocol, and tested method separately. When several datasets share one Gold protocol, state the common protocol once and distinguish datasets by source, sampling, size, or purpose.
+- Before comparing absolute metrics across datasets, explain their composition and purpose. Do not narrate cross-dataset differences as chronological method improvement or regression.
 - Keep paths and operational commands in the Log; the Guide links to them.
 - Omit routine execution counts such as HTTP 200 totals when they do not affect the denominator, missingness, or claim boundary.
 - Avoid work-log prose, ceremonial transitions, generic “future work,” unsupported novelty claims, and meta-commentary such as “本轮”, “为与原文对齐”, or statements about what the team chose not to do.

@@ -15,12 +15,21 @@ Before results, state:
 
 Define every metric at first use. Accuracy, pass rate, issue presence, verdict, category, exact set match, Jaccard, Precision, Recall, and F1 are not interchangeable.
 
+Always name three identities separately:
+
+1. **Evaluation set**: source, sampling rule, frozen version, registered N, and adjudicable denominator.
+2. **Reference-label protocol**: judge model, prompt, independent-review count, vote/adjudication rule, and unresolved handling.
+3. **Tested condition**: model, prompt, pipeline, checkpoint, or other changed variable.
+
+Name a dataset by where it came from, how it was sampled, its size, or its purpose. Do not name it only after the Gold protocol. Gold is a label-construction protocol or label version, not the dataset itself; one Gold protocol may be shared by multiple datasets with different difficulty.
+
 ## Comparable does not mean identical
 
 - Same input IDs do not imply same GT.
 - Same GT does not imply same System/User Prompt or output schema.
 - Same metric name does not imply the same positive class, unit, averaging, or denominator.
 - A common intersection enables a scoped comparison; it does not replace full-set results.
+- Absolute metrics from different datasets cannot establish chronological method improvement or regression. A cross-set table must expose source, sampling controls, registered/adjudicable denominators, Gold protocol, and evaluation purpose.
 
 When two training/review methods create different label sets for the same inputs, use a 2×2 evaluation where appropriate: evaluate both models against both label sources. Report diagonal fit and cross-label generalization separately.
 

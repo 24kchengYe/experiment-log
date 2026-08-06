@@ -48,6 +48,18 @@
         "执行hostile-review并收窄超出证据的主张",
         "避免AI式防御性弱点清单和工作日志叙事"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "一份指南把50条工程冻结集叫Frozen50，把从3000条中分层抽出的100条叫Gold100。两者其实都由同一个Judge模型使用同一Prompt独立Review三次再多数投票得到代理Gold，但两张表的F1不同。请修改命名和解释，避免读者以为后做的方案退化了。",
+      "expected_output": "Separate evaluation-set identity from the shared proxy-Gold protocol, rename the 100-set by source/sampling rather than Gold, expose sampling and adjudicable denominators, and treat the metric gap as cross-dataset rather than chronological method regression.",
+      "files": [],
+      "expectations": [
+        "States once that both sets share the same three-review majority-vote proxy-Gold protocol",
+        "Names each evaluation set by source, sampling, size, or purpose rather than calling only one Gold",
+        "Reports registered and adjudicable denominators separately",
+        "Does not infer method regression from absolute metrics on different datasets"
+      ]
     }
   ]
 }
