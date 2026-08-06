@@ -91,6 +91,29 @@ Conclusion: need change detection first ──→ EXP-5.7.8
 
 一项实验只在 Log 中完整记录一次，其他位置通过 `EXP-ID` 引用，避免多个版本互相漂移。
 
+## 多实验项目的产物怎么组织
+
+技能不会强制项目改目录名，但会先区分这些角色：
+
+```text
+inputs/      不可变原始输入
+runs/        每次实验现场：配置、快照、中间状态、原始输出
+versions/    从 Run 提升出的可消费版本，只增不改
+analysis/    跨实验分析和读者报告
+prompts/     当前源文件与历史冻结快照
+assets/      可编辑图源与渲染文件
+```
+
+关键约束：
+
+- `run` 可以失败、暂停或被替代；只有通过来源、Schema、统计、切分、校验和哈希检查后，才提升为 `version`。
+- 历史实验使用当时冻结的 Prompt/Config 或哈希复现，不能拿当前 `active/` 入口反推。
+- 数据清洗、标签变化、重新切分或输出 Schema 变化都产生新版本，不覆盖旧文件。
+- 多阶段 API 链路保留稳定 `call_id`、原始请求/响应、标准化结果、重试账本和断点；成功恢复后也不删除失败记录。
+- 测试 ID 相同不代表 GT 相同。标签来源不同的实验需要明确同 GT 比较、交叉比较或 2×2 评测。
+
+数据版本可直接使用 `assets/DATA_VERSION_TEMPLATE.md`；独立 Run 使用 `assets/RUN_EXPERIMENT_TEMPLATE.md`。
+
 ## 安装与更新
 
 ```bash
@@ -139,10 +162,17 @@ experiment-log/
 │   ├── record-mode.md              # 真实记录规则
 │   ├── guide-mode.md               # 研究叙事规则
 │   ├── paper-mode.md               # 显式论文模式
+│   ├── artifact-lineage.md         # Run、Version 与产物血缘
+│   ├── dataset-versioning.md       # 数据/模型版本合同
+│   ├── evaluation-reporting.md     # 评测、消融与根因分析
+│   ├── pipeline-traceability.md    # 多阶段调用、断点与成本
 │   └── sync-audit.md               # 同步与审计规则
 ├── assets/
 │   ├── EXPERIMENT_LOG_TEMPLATE.md
-│   └── EXPERIMENT_GUIDE_TEMPLATE.md
+│   ├── EXPERIMENT_GUIDE_TEMPLATE.md
+│   ├── RUN_EXPERIMENT_TEMPLATE.md
+│   ├── DATA_VERSION_TEMPLATE.md
+│   └── EVALUATION_REPORT_TEMPLATE.md
 └── agents/openai.yaml
 ```
 

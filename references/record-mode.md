@@ -46,6 +46,10 @@ What question is tested, why now, and what result would support or reject it?
 - State whether train/test prompts and schemas match, whether the test set was reused for development, and whether labels were reviewed.
 - Separate model prediction, historical Judge output, rule mapping, agent review, and human/strong-model Gold.
 - If a proxy metric is used, state its relationship to the end objective.
+- Distinguish a replayable run from a promoted data/model version. Link both when a run produces a downstream version.
+- If the same IDs have revised labels, name the label/GT version every time a result is reported.
+- Preserve `superseded` and `invalid` experiments with the reason and replacement pointer; exclude their numbers from current conclusions.
+- Record partial completion, checkpoint recovery, and whether resumed work reran completed units.
 
 ## Failed experiments
 
@@ -65,3 +69,4 @@ Use a short decision chain when several failures lead to the same retained desig
 - Describe an experiment in one place and cross-reference it elsewhere.
 - Keep engineering fixes separate from research conclusions.
 - Maintain a compact experiment index with `EXP-ID`, question, status, key result, and artifact link.
+- Keep machine-readable summaries beside prose when the experiment has nontrivial counts or distributions.
