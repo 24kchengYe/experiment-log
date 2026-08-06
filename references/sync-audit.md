@@ -23,16 +23,19 @@
 - Percentages use the stated numerator and denominator.
 - Case, version, Review Unit, Issue, pair, and rubric counts are not conflated.
 - Precision, Recall, F1, accuracy, exact match, Jaccard, and pass rate are defined once and used consistently.
+- Source, included, excluded, and split counts obey conservation equations.
 
 ### Version consistency
 
 - Prompt, rubric, dataset, label, model, endpoint, and evaluation-script versions match the actual run.
 - Training and test schemas are identified.
 - Reviewed GT is distinguished from original labels and predictions.
+- Active symlinks or current prompts are not cited as historical run snapshots.
 
 ### Comparison validity
 
 - Baselines use comparable data, thresholds, prompts, post-processing, and evaluation units.
+- Same input IDs, same GT, same prompt/schema, and same evaluation code are checked as separate conditions.
 - Reused test sets and multiple comparisons are disclosed.
 - Single runs are not presented as stable improvements.
 - Causal attribution matches the variables controlled.

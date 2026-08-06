@@ -1,6 +1,6 @@
 ---
 name: exp-log
-description: Write, update, synchronize, and audit reproducible Experiment Logs, evidence-backed Experiment Guides or research narratives, and explicitly requested paper drafts from one traceable evidence base. Use for “实验记录”, “实验日志”, “实验指南”, “研究叙事”, “记录这个实验”, “整理实验结论”, “同步记录和指南”, “写论文”, “experiment log”, “experiment guide”, completed training/evaluation/ablation runs, failed experiments, artifact lookup, or turning accumulated experiments into defensible findings. Supports record, guide, sync, audit, failure, update, extract, and explicit paper modes while preserving /exp-log and /experiment-log compatibility.
+description: Write, update, synchronize, and audit reproducible Experiment Logs, evidence-backed Experiment Guides or research narratives, dataset/model version records, evaluation reports, multi-stage pipeline traces, and explicitly requested paper drafts from one traceable evidence base. Use for “实验记录”, “实验日志”, “实验指南”, “研究叙事”, “数据版本说明”, “评测报告”, “记录这个实验”, “整理实验结论”, “同步记录和指南”, “写论文”, “experiment log”, “experiment guide”, completed training/evaluation/ablation runs, failed experiments, artifact lineage, or turning accumulated experiments into defensible findings. Supports record, guide, sync, audit, failure, update, extract, and explicit paper modes while preserving /exp-log and /experiment-log compatibility.
 ---
 
 # Experiment Log + Guide
@@ -32,6 +32,7 @@ After a substantive experiment, default to `sync`: record the experiment first, 
 1. **Discover the evidence**
    - Inspect the current Log, Guide, manifests, configs, prompts, datasets, evaluation outputs, and code.
    - Prefer primary artifacts over old narrative summaries.
+   - Map inputs, runs, versions, analysis, prompts, and share artifacts before treating similarly named files as equivalent.
 2. **Identify the unit of record**
    - Assign or preserve an `EXP-ID`.
    - State the research question, baseline, changed variables, evaluation unit, and data split.
@@ -48,6 +49,13 @@ After a substantive experiment, default to `sync`: record the experiment first, 
 6. **Audit the views**
    - Follow [sync-audit.md](references/sync-audit.md).
    - A Guide or paper claim must resolve to an `EXP-ID`, table, metric, or artifact in the Log.
+
+## Load specialized rules only when needed
+
+- For a project with many runs, versions, prompts, reports, symlinks, or copied artifacts, read [artifact-lineage.md](references/artifact-lineage.md).
+- When creating or revising a training/test/annotation/model version, read [dataset-versioning.md](references/dataset-versioning.md) and use [DATA_VERSION_TEMPLATE.md](assets/DATA_VERSION_TEMPLATE.md).
+- For evaluation, ablation, reviewer-stability, semantic review, or root-cause analysis, read [evaluation-reporting.md](references/evaluation-reporting.md) and use [EVALUATION_REPORT_TEMPLATE.md](assets/EVALUATION_REPORT_TEMPLATE.md).
+- For multi-stage model/tool pipelines with retries, checkpoints, or partial release states, read [pipeline-traceability.md](references/pipeline-traceability.md) and use [RUN_EXPERIMENT_TEMPLATE.md](assets/RUN_EXPERIMENT_TEMPLATE.md).
 
 ## Guide impact gate
 
@@ -66,7 +74,7 @@ If none changes, leave the Guide untouched and report: `Guide: no material chang
 
 ### Experiment Log
 
-The Log is appendable, reproducible, and exact. It may contain negative results, operational details, and unresolved contradictions. Use [EXPERIMENT_LOG_TEMPLATE.md](assets/EXPERIMENT_LOG_TEMPLATE.md).
+The Log is appendable, reproducible, and exact. It may contain negative results, operational details, and unresolved contradictions. Use [EXPERIMENT_LOG_TEMPLATE.md](assets/EXPERIMENT_LOG_TEMPLATE.md) for the project ledger and [RUN_EXPERIMENT_TEMPLATE.md](assets/RUN_EXPERIMENT_TEMPLATE.md) for a standalone run record.
 
 Each experiment requires:
 
