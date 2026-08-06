@@ -1,230 +1,108 @@
 ---
 name: exp-log
-description: |
-  Write and maintain structured experiment logs for ML/scientific research projects.
-  Ensures every experiment is recorded with motivation, method (with formulas),
-  results (with baseline comparison), analysis, and artifact paths.
-
-  Use this skill when the user mentions:
-  - "/exp-log", "/experiment-log", "记录实验", "写实验日志", "experiment log", "实验记录"
-  - "记录一下这个实验", "把结果记下来", "log this experiment", "record results"
-  - "更新实验日志", "update experiment log", "add to log"
-  - "实验失败了记录一下", "log the failure", "记录失败原因"
-  - "整理实验记录", "organize experiment log", "重构日志"
-  - "从日志里提取论文素材", "extract for paper", "论文素材"
-
-  Also trigger when the user completes a training run, evaluation, or ablation study
-  and needs the results systematically recorded.
+description: Write, update, synchronize, and audit reproducible Experiment Logs, evidence-backed Experiment Guides or research narratives, and explicitly requested paper drafts from one traceable evidence base. Use for “实验记录”, “实验日志”, “实验指南”, “研究叙事”, “记录这个实验”, “整理实验结论”, “同步记录和指南”, “写论文”, “experiment log”, “experiment guide”, completed training/evaluation/ablation runs, failed experiments, artifact lookup, or turning accumulated experiments into defensible findings. Supports record, guide, sync, audit, failure, update, extract, and explicit paper modes while preserving /exp-log and /experiment-log compatibility.
 ---
 
-# Experiment Log — Structured Research Experiment Recording
+# Experiment Log + Guide
 
-A skill for writing and maintaining ML/scientific experiment logs that serve three purposes:
-1. **Daily R&D**: quickly locate what was done, what worked, what failed
-2. **Advisor reporting**: extract key progress and decisions for presentations
-3. **Paper writing**: directly copy formulas, result tables, and analysis into manuscripts
+Maintain several views of the same evidence without confusing their purposes.
 
-## Core Principles
+- **Experiment Log** (`EXPERIMENT_LOG.md`) is the factual source of truth: what ran, why, with which data, code, prompt, model, metrics, outputs, and failures.
+- **Experiment Guide / Research Narrative** (`EXPERIMENT_GUIDE.md`) explains the research problem, evidence chain, retained decisions, limitations, and next questions to a reader.
+- **Paper draft** is a publication-oriented transformation of the same evidence. Enter this mode only when the user explicitly requests a paper, manuscript, or paper section.
 
-### 1. Every experiment gets an EXP-ID
+The Guide may tell a coherent story. It must not invent continuity, certainty, causality, or contributions that the Log does not support. Paper mode is never inferred from a request to record or summarize experiments.
 
-```markdown
-### EXP-{section}.{number}: {one-line title}
+## Route the request
 
-**Date**: YYYY-MM-DD
-**Git**: {commit hash(es)}
-**Status**: complete / failed / in_progress / planned
+| User intent | Mode | Primary output |
+|---|---|---|
+| Record a completed or failed run | `record` / `failure` | Experiment Log |
+| Update status, metrics, paths, or conclusions | `update` | Experiment Log |
+| Explain what the experiments now show | `guide` | Experiment Guide |
+| Keep factual and narrative views aligned | `sync` | Log first, then Guide if material |
+| Check correctness, traceability, or contradictions | `audit` | Audit findings and corrections |
+| Locate or repackage existing evidence | `extract` | Requested index, table, or summary |
+| Write a paper or manuscript section | `paper` | Explicitly requested paper artifact |
 
-#### Motivation
-2-3 sentences: What problem from the previous experiment motivated this one?
-What is the hypothesis being tested?
+After a substantive experiment, default to `sync`: record the experiment first, then apply the Guide impact gate. For a small metadata/path correction, update only the Log unless the correction changes a claim.
 
-#### Method
-- Key formulas (LaTeX, paper-grade precision)
-- Algorithm description or pseudocode
-- Hyperparameters table
-- Diff vs previous version (only list changes, don't repeat)
-- **Data**: split method (by city/image/patch?), sizes, version
-- **Changed variables**: list EXACTLY what changed vs baseline (single-variable?)
-- **Train-test gap**: note if training and inference use different procedures
+## Shared workflow
 
-#### Results
-- Quantitative results table (MUST include baseline comparison column)
-- **Uncertainty**: mean +/- std, CI, or N runs (single-run results must be flagged)
-- **Fair comparison check**: same data, same thresholds, same post-processing?
-- Figure/plot paths: `output/figures/xxx.png`
-- Bold the key numbers
+1. **Discover the evidence**
+   - Inspect the current Log, Guide, manifests, configs, prompts, datasets, evaluation outputs, and code.
+   - Prefer primary artifacts over old narrative summaries.
+2. **Identify the unit of record**
+   - Assign or preserve an `EXP-ID`.
+   - State the research question, baseline, changed variables, evaluation unit, and data split.
+3. **Write the factual record first**
+   - Follow [record-mode.md](references/record-mode.md).
+   - Record exact paths, versions, denominators, failures, and comparison conditions.
+4. **Classify evidence strength**
+   - `Established`: controlled evidence with the needed statistical support.
+   - `Supported`: consistent evidence with relevant controls, but not definitive.
+   - `Preliminary`: limited runs/data or remaining confounders.
+   - `Hypothesis`: plausible explanation awaiting a direct test.
+5. **Run the Guide impact gate**
+   - Follow [guide-mode.md](references/guide-mode.md) only when new evidence materially changes the reader-facing account.
+6. **Audit the views**
+   - Follow [sync-audit.md](references/sync-audit.md).
+   - A Guide or paper claim must resolve to an `EXP-ID`, table, metric, or artifact in the Log.
 
-#### Analysis
-- Did results match the hypothesis?
-- If failed: root cause, what hypothesis was ruled out, what constraint was established
-- **Conclusion strength**: mark each claim as one of:
-  - **Established**: supported by controlled experiment + statistical test
-  - **Supported**: consistent evidence but missing some controls
-  - **Preliminary**: single run, limited data, or confounded variables
-  - **Hypothesis**: reasonable guess, needs verification
-- Impact on next steps (→ points to next EXP-ID)
+## Guide impact gate
 
-#### Artifacts
-- Model weights: `model/trained/xxx.pth`
-- Output data: `data/xxx/`
-- Visualizations: `output/figures/xxx/`
-```
+Update the Guide when new evidence changes at least one of:
 
-### 2. Failed experiments use decision trees, not flat lists
+- the main finding or its evidence strength;
+- the retained/default model, prompt, dataset, pipeline, or evaluation method;
+- dataset scale, composition, split, or version;
+- the research framework or causal explanation;
+- an important limitation, trade-off, or evidence boundary;
+- next-step priority.
 
-Each failure must explicitly record:
+If none changes, leave the Guide untouched and report: `Guide: no material change`.
 
-```markdown
-- **Excluded hypothesis**: What did this failure disprove?
-- **Established constraint**: What must future attempts satisfy?
-- **→ Next step**: How this directly led to the next attempt (→ EXP-X.Y.Z)
-```
+## Document contracts
 
-When multiple failures form a chain, add an ASCII decision tree summary:
+### Experiment Log
 
-```
-EXP-A failed (reason) ──→ constraint: must do X
-    ↓
-EXP-B failed (reason) ──→ constraint: must also do Y
-    ↓
-EXP-C failed (reason) ──→ constraint: must also do Z
-    ↓
-Conclusion: need approach W ──→ EXP-D
-```
+The Log is appendable, reproducible, and exact. It may contain negative results, operational details, and unresolved contradictions. Use [EXPERIMENT_LOG_TEMPLATE.md](assets/EXPERIMENT_LOG_TEMPLATE.md).
 
-### 3. Reference old experiments precisely
+Each experiment requires:
 
-Never write "旧方法" or "old model". Always specify:
+- `EXP-ID`, date, status, and relevant git/version identifiers;
+- motivation and falsifiable hypothesis;
+- data source, split, sample counts, and evaluation unit;
+- method and every variable changed from the named baseline;
+- results with metric definitions and denominators;
+- interpretation separated from observation;
+- evidence strength and comparison limitations;
+- exact code, prompt, config, data, model, report, and output paths.
 
-```markdown
-# Bad
-Used the old HRNet model results...
+### Experiment Guide
 
-# Good
-Used HRNet v1 (2025-03, epoch=49, Dice=0.783,
-Git: `e3f1a2b`, weights: `model/trained_archive/best_model.pth`)
-```
+The Guide is concise, evidence-forward, and organized by research question rather than execution date. Use [EXPERIMENT_GUIDE_TEMPLATE.md](assets/EXPERIMENT_GUIDE_TEMPLATE.md). Each important claim includes its scope, evidence and denominator, supporting `EXP-ID` or artifact, evidence strength, and practical implication or uncertainty.
 
-First mention of any model/method requires: **version name + date + key metric + git hash + artifact path**. Subsequent references use the version name only.
+### Paper
 
-### 4. Formulas on first occurrence
-
-Every quantitative metric must have a formula definition on first use:
-
-```markdown
-$$\text{jaccard} = \frac{n_{stable}}{n_{hist} + n_{mod} - n_{stable}}$$
-```
-
-Later references: "jaccard (defined in §X.Y)"
-
-### 5. Cross-references, not duplication
-
-- Each experiment is detailed in exactly ONE place
-- Other sections use `(§EXP-X.Y.Z)` or `(see EXP-X.Y.Z)` to reference
-- Summary/index tables (like §9) link to detailed sections, don't repeat content
-
-### 6. Artifact paths are mandatory
-
-Every experiment must list its outputs:
-
-```markdown
-#### Artifacts
-- Code: `code/05_change_detection/25f_finetune_roma.py`
-- Data: `data/07_roma_finetune_change_aware/` (6072 train, 653 val)
-- Figures: `output/figures/roma_grid_search/results.csv`
-- Weights: `model/trained/roma_finetuned/best.pth`
-```
-
-### 7. Section organization
-
-- Organize by **research question**, not by time
-- Within a question, experiments are chronologically ordered with EXP-IDs
-- A "Conclusions" section contains only cross-question insights
-- An "Index" section provides a quick-lookup table with EXP-ID links
-- "Engineering/Bug fixes" are separated from research experiments
-- "Next steps" section is always kept current
+Use [paper-mode.md](references/paper-mode.md) only after an explicit paper request. Paper mode may organize a contribution narrative, but all quantitative claims, comparisons, and limitations remain traceable to the Log. If venue, section, or audience is unclear, produce a neutral research-paper draft rather than assuming a venue.
 
 ## Commands
 
-### `/experiment-log record`
-Record a new experiment. Will prompt for:
-- Which section/question it belongs to
-- Previous experiment it builds on (for motivation)
-- Method, results, analysis
+- `/exp-log record` — add a completed experiment.
+- `/exp-log failure` — record a failed run and the constraint learned.
+- `/exp-log update` — update an existing experiment.
+- `/exp-log guide` — refresh the reader-facing Guide from the Log.
+- `/exp-log sync` — update the Log, run the impact gate, then audit both views.
+- `/exp-log audit` — check missing evidence, arithmetic, paths, versions, and contradictions.
+- `/exp-log extract` — produce a path index, comparison table, timeline, slides outline, or requested view.
+- `/exp-log paper` — draft or revise a paper artifact; explicit user request required.
 
-### `/experiment-log failure`
-Record a failed experiment with decision tree format.
+## Completion check
 
-### `/experiment-log update`
-Update an existing experiment's status or add new results.
-
-### `/experiment-log audit`
-Scan the experiment log for:
-- Missing git hashes
-- Vague references ("旧方法", "old model")
-- Missing artifact paths
-- Experiments without motivation sections
-- Duplicated content across sections
-- **Missing data split description** (how was train/val/test divided?)
-- **Single-run results without uncertainty** (no mean±std, no CI)
-- **Multi-variable changes** claimed as single-factor conclusions
-- **Conclusions marked as "established" without statistical tests**
-- **Proxy metrics** used without linking to end-goal metrics
-- **Missing fair comparison conditions** (different thresholds, data, post-processing)
-- **Train-test mismatch** not documented (e.g., training uses mask X but inference doesn't)
-
-### `/experiment-log extract`
-Extract material for a specific purpose:
-- `extract paper §X` — extract formulas + result tables for paper section X
-- `extract slides` — extract key findings as bullet points for presentation
-- `extract timeline` — generate chronological progress summary
-
-## File Structure
-
-The experiment log is a single markdown file (typically `EXPERIMENT_LOG.md`) at the project root. Structure:
-
-```
-# Project Experiment Log
-> Author, affiliation, advisor
-> Last updated: YYYY-MM-DD
-
-## 1. Project Overview
-### 1.1 Research Goal
-### 1.2 Core Questions
-### 1.3 Solution Narratives (problem → hypothesis → process → references)
-
-## 2-N. Experiments by Research Question
-### EXP-X.Y.Z: Title
-(following the template above)
-
-## N+1. Conclusions (cross-question insights only)
-
-## N+2. Engineering & Bug Fixes (non-research)
-
-## N+3. Next Steps (always current)
-
-## N+4. Experiment Index (quick-lookup table → EXP-IDs)
-
-## Appendices
-### A. Code Index
-### B. Model Weights
-### C. Data Paths
-### D. Output Paths
-### E. References
-```
-
-## Anti-patterns to Avoid
-
-1. **Flat chronological log**: "April 15: tried X. April 16: tried Y." — No structure, no decision logic.
-2. **Results without analysis**: Tables of numbers without explaining what they mean or what to do next.
-3. **Vague references**: "the old model", "previous results", "as before" — uninterpretable after 2 weeks.
-4. **Duplicate content**: Same experiment described in both §5 and §7 — creates inconsistency.
-5. **Missing motivation**: Jumping straight to method without explaining WHY this experiment was attempted.
-6. **Prose-only failures**: "It didn't work because X" — missing the decision tree (what was excluded, what constraint was learned, what comes next).
-7. **Multi-variable changes claimed as single-factor**: Changed data + code + hyperparams simultaneously, then attributed improvement to one factor. Must list ALL changed variables.
-8. **Overconfident conclusions from single runs**: "Method A is better" based on 0.008 Dice difference without confidence intervals. Flag single-run results explicitly.
-9. **Proxy metrics mistaken for end-goal**: Optimizing Dice/SSIM/right-angle-rate without verifying that the actual research objective (e.g., tracking quality) improved.
-10. **Unfair comparisons**: Comparing methods with different thresholds, data splits, post-processing, or evaluation scripts. Every comparison table must state what was held constant.
-11. **Test set hacking**: Repeatedly viewing test results and adjusting methods → test set becomes dev set. Note which datasets have been used for development vs final evaluation.
-12. **Missing data split description**: Not stating whether train/val/test are split by city, image, or random patch — critical for spatial data where adjacent patches leak information.
+- Verify every new number against its source; make units and denominators explicit.
+- Name the exact baseline and changed variables.
+- Distinguish observation, interpretation, and hypothesis.
+- Ensure file links and artifact paths resolve.
+- Ensure Guide and paper claims do not exceed Log evidence.
+- Report which views changed and which did not.
