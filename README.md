@@ -166,37 +166,21 @@ skills/      从已验证实验中提炼的可复用流程
 ## 实验资产如何继续沉淀
 
 ```text
-问题、错误样本、规范
-          │
-          ▼
-   Rubric 候选与校准 ──────┐
-          │                │
-          ▼                │
-按日期保存的 Runs           │
-          │                │
-   验证、审计、冻结          │
-          ▼                │
-数据/模型 Versions ◄────────┘
-          │
-   重复验证且流程稳定
-          ▼
-     Reusable Skill
+冻结的数据、Prompt、Rubric 与分析合同
+                    │
+                    ▼
+           按日期保存的 Runs
+                    │
+             验证、审计、冻结
+                    ▼
+            数据/模型 Versions
+                    │
+           重复验证且流程稳定
+                    ▼
+              Reusable Skill
 ```
 
-### Rubric 怎么构造
-
-Rubric 不应该只靠先验拍脑袋，也不能简单把历史问题逐条变成标签。推荐流程是：
-
-1. 汇总规范、确定性规则、历史问题、unresolved、Reviewer 分歧和模型错误。
-2. 把问题统一改写成“判断对象—违规事实—证据—严重度”，剥离症状和修复建议。
-3. 按 `Domain → Category → Rubric → Mode` 组织。
-4. 只有判断对象、证据来源或归责路径不同才拆 Rubric；同根因只保留最具体归责。
-5. 为每条规则补适用前提、排除条件、证据要求、防误判和计数口径。
-6. 生成完整 Guide、标注 Prompt、精简训练 Prompt 和机器 Registry。
-7. 用常见、长尾、clean、边界和多问题样本校准，再冻结 Manifest 与 SHA-256。
-8. 新旧版本发生拆分、合并或语义变化时计算迁移成本；不能机械映射的标签重新 Review。
-
-完整规则见 `references/rubric-engineering.md`，冻结模板见 `assets/RUBRIC_VERSION_TEMPLATE.md`。
+Rubric 构造属于独立的 Judge Rubric Engineering 能力。`experiment-log` 只记录实验实际使用的 Rubric 版本、Prompt/Registry 路径、Manifest、哈希和迁移状态，不在实验记录内部修改规则。
 
 ### 什么时候从实验提取 Skill
 
@@ -264,7 +248,7 @@ experiment-log/
 │   ├── dataset-versioning.md       # 数据/模型版本合同
 │   ├── evaluation-reporting.md     # 评测、消融与根因分析
 │   ├── pipeline-traceability.md    # 多阶段调用、断点与成本
-│   ├── rubric-engineering.md       # Rubric 构造、冻结与迁移
+│   ├── rubric-engineering.md       # 兼容入口：转交独立 Rubric Skill
 │   ├── skill-extraction.md         # 从实验提取可复用 Skill
 │   └── sync-audit.md               # 同步与审计规则
 ├── assets/
@@ -273,7 +257,7 @@ experiment-log/
 │   ├── RUN_EXPERIMENT_TEMPLATE.md
 │   ├── DATA_VERSION_TEMPLATE.md
 │   ├── EVALUATION_REPORT_TEMPLATE.md
-│   └── RUBRIC_VERSION_TEMPLATE.md
+│   └── RUBRIC_VERSION_TEMPLATE.md  # 兼容入口，不再维护规则模板
 ├── scripts/
 │   └── validate_experiment_package.py # 只读检查编号、冻结、输出和完成审计
 ├── tests/

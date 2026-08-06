@@ -1,7 +1,7 @@
 interface:
   display_name: "Experiment Record + Guide"
-  short_description: "管理实验包、数据版本、Rubric、评测审计与证据叙事"
-  default_prompt: "Use $exp-log in record mode to preserve frozen experiment packages, artifact and version lineage, evaluation and Rubric contracts, completion audits, or verified skill extraction; use synthesis mode only for an authorized Guide or publication artifact."
+  short_description: "管理实验包、数据版本、评测审计、完成检查与证据叙事"
+  default_prompt: "Use $exp-log in record mode to preserve frozen experiment packages, artifact and version lineage, evaluation contracts, completion audits, or verified skill extraction; use synthesis mode only for an authorized Guide or publication artifact."
 
 policy:
   allow_implicit_invocation: true

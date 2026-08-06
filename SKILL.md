@@ -1,6 +1,6 @@
 ---
 name: exp-log
-description: Design, freeze, run, resume, record, promote, audit, and synthesize reproducible scientific experiments, experiment packages, dataset/model versions, evaluations, Rubrics, and research narratives from one traceable evidence base; also extract verified repeated workflows into reusable skills. Use whenever a task involves 实验记录、实验日志、实验包、实验编号、冻结协议、失败账本、运行清单、完成审计、实验指南、研究叙事、数据版本说明、评测报告、Rubric构造、从实验提取技能、结果整理、论文实验部分, experiment logs, experiment packages, experiment guides, ablations, evaluations, failed or interrupted runs, artifact lineage, multi-stage pipeline traces, or evidence-backed paper writing. Supports record and synthesis modes plus record, failure, update, guide, sync, audit, promote, rubric, extract-skill, extract, and explicit paper routes while preserving /exp-log and /experiment-log compatibility.
+description: Design, freeze, run, resume, record, promote, audit, and synthesize reproducible scientific experiments, experiment packages, dataset/model versions, evaluations, and research narratives from one traceable evidence base; also extract verified repeated workflows into reusable skills. Use whenever a task involves 实验记录、实验日志、实验包、实验编号、冻结协议、失败账本、运行清单、完成审计、实验指南、研究叙事、数据版本说明、评测报告、从实验提取技能、结果整理、论文实验部分, experiment logs, experiment packages, experiment guides, ablations, evaluations, failed or interrupted runs, artifact lineage, multi-stage pipeline traces, rubric-version provenance, or evidence-backed paper writing. Supports record and synthesis modes plus record, failure, update, guide, sync, audit, promote, extract-skill, extract, and explicit paper routes while preserving /exp-log and /experiment-log compatibility.
 ---
 
 # Experiment Log
@@ -24,7 +24,6 @@ The modes have different information density. Record mode may include operationa
 | Align factual and reader-facing views | `sync` | Record, then synthesis | Log update and authorized Guide update |
 | Locate or repackage evidence | `extract` | Either | Requested index, table, or summary |
 | Promote validated Run output to an immutable Version | `promote` | Record | Version bundle and lineage contract |
-| Construct, audit, freeze, or migrate evaluation rules | `rubric` | Record | Rubric Guide, registry, prompts, and manifest |
 | Turn a verified repeated workflow into a reusable skill | `extract-skill` | Record | Skill package with tests and evidence anchors |
 | Write a paper, response, abstract, or named section | `paper` | Synthesis | Explicitly requested publication artifact |
 
@@ -102,7 +101,7 @@ A null result is not a run failure. A completed API run is not evidence for the 
 - When creating or revising a training/test/annotation/model version, read [dataset-versioning.md](references/dataset-versioning.md) and use [DATA_VERSION_TEMPLATE.md](assets/DATA_VERSION_TEMPLATE.md).
 - For evaluation, ablation, reviewer-stability, semantic review, or root-cause analysis, read [evaluation-reporting.md](references/evaluation-reporting.md) and use [EVALUATION_REPORT_TEMPLATE.md](assets/EVALUATION_REPORT_TEMPLATE.md).
 - For multi-stage model/tool pipelines with retries, checkpoints, or partial release states, read [pipeline-traceability.md](references/pipeline-traceability.md) and use [RUN_EXPERIMENT_TEMPLATE.md](assets/RUN_EXPERIMENT_TEMPLATE.md).
-- For Rubric construction, atomicity, calibration, freezing, or migration, read [rubric-engineering.md](references/rubric-engineering.md) and use [RUBRIC_VERSION_TEMPLATE.md](assets/RUBRIC_VERSION_TEMPLATE.md).
+- When an experiment consumes a Rubric, record its version, registry/prompt paths, manifest, and hashes. Use a dedicated Rubric-engineering skill to construct, calibrate, freeze, or migrate the rules themselves.
 - When a verified experimental method should become a reusable skill, read [skill-extraction.md](references/skill-extraction.md). Use the environment's skill-creation workflow to package and validate it.
 
 ## Guide impact gate
@@ -154,7 +153,6 @@ Use [paper-mode.md](references/paper-mode.md) only after an explicit paper reque
 - `/exp-log audit` — check package completeness, provenance, arithmetic, versions, and cross-document claims.
 - `/exp-log extract` — produce an index, comparison table, timeline, source table, slides outline, or requested view.
 - `/exp-log promote` — promote validated Run output to a frozen data/model Version.
-- `/exp-log rubric` — construct, audit, freeze, or migrate a Rubric version.
 - `/exp-log extract-skill` — extract a stable, tested workflow from verified experiments.
 - `/exp-log paper` — draft or revise an explicitly requested publication artifact.
 
