@@ -1,7 +1,7 @@
 interface:
   display_name: "Experiment Log + Guide"
-  short_description: "同步可复现实验记录、数据版本、评测报告与证据叙事"
-  default_prompt: "Use $exp-log to record the run, preserve artifact and version lineage, report the evaluation contract, and synchronize material conclusions into the research guide."
+  short_description: "维护可复现实验记录、数据版本、Rubric与可复用技能"
+  default_prompt: "Use $exp-log to record the dated run, promote validated versions, engineer traceable Rubrics, and extract reusable skills from verified experiments."
 
 policy:
   allow_implicit_invocation: true

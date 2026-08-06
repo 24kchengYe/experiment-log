@@ -11,6 +11,8 @@ versions/    immutable, validated artifacts consumed downstream
 analysis/    derived interpretation; never the sole source of data
 prompts/     active source plus archived/frozen snapshots
 assets/      editable visual source plus rendered exports
+references/  frozen Rubrics, protocols, registries, and schemas
+skills/      reusable workflows extracted from verified experiments
 ```
 
 These roles are semantic, not mandatory directory names. Map an existing project to them before reorganizing anything.
@@ -19,9 +21,38 @@ These roles are semantic, not mandatory directory names. Map an existing project
 
 A run is an execution site. It may be incomplete, exploratory, failed, resumed, or superseded. Keep inputs, configuration, prompt snapshot, intermediate state, raw outputs, normalized outputs, logs, and the experiment record together when practical.
 
+Recommended contract:
+
+```text
+runs/YYYY-MM-DD_<scope>_<experiment>/
+├── EXPERIMENT.md
+├── input/ or frozen input manifest
+├── prompt_snapshot/ or config snapshot
+├── stages/ or outputs/
+├── summary.json
+└── validation/integrity report
+```
+
+The date-first name makes chronological search and prefix filtering easy. Add dataset/model/profile terms only when they distinguish the experiment. Do not put several unrelated experiments in one Run merely because they occurred on the same day.
+
 ### Version
 
 A version is a downstream-consumable snapshot promoted from one or more runs. It must have a stable schema, lineage, statistics, validation, and immutable identity. Do not promote every run to a version.
+
+Recommended contract:
+
+```text
+versions/vNN_YYYY-MM-DD_<purpose>_<size>/
+├── README.md or VERSION.md
+├── consumer data/model artifacts
+├── manifest
+├── summary
+├── validation
+├── checksums
+└── frozen prompt/config when required
+```
+
+`vNN` gives a stable sequence; the date supports search; purpose and size make detached paths understandable. Once published, do not mutate the version in place.
 
 ### Analysis
 

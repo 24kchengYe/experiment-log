@@ -102,6 +102,8 @@ versions/    从 Run 提升出的可消费版本，只增不改
 analysis/    跨实验分析和读者报告
 prompts/     当前源文件与历史冻结快照
 assets/      可编辑图源与渲染文件
+references/  冻结 Rubric、协议、Registry 和 Schema
+skills/      从已验证实验中提炼的可复用流程
 ```
 
 关键约束：
@@ -113,6 +115,54 @@ assets/      可编辑图源与渲染文件
 - 测试 ID 相同不代表 GT 相同。标签来源不同的实验需要明确同 GT 比较、交叉比较或 2×2 评测。
 
 数据版本可直接使用 `assets/DATA_VERSION_TEMPLATE.md`；独立 Run 使用 `assets/RUN_EXPERIMENT_TEMPLATE.md`。
+
+## 实验资产如何继续沉淀
+
+```text
+问题、错误样本、规范
+          │
+          ▼
+   Rubric 候选与校准 ──────┐
+          │                │
+          ▼                │
+按日期保存的 Runs           │
+          │                │
+   验证、审计、冻结          │
+          ▼                │
+数据/模型 Versions ◄────────┘
+          │
+   重复验证且流程稳定
+          ▼
+     Reusable Skill
+```
+
+### Rubric 怎么构造
+
+Rubric 不应该只靠先验拍脑袋，也不能简单把历史问题逐条变成标签。推荐流程是：
+
+1. 汇总规范、确定性规则、历史问题、unresolved、Reviewer 分歧和模型错误。
+2. 把问题统一改写成“判断对象—违规事实—证据—严重度”，剥离症状和修复建议。
+3. 按 `Domain → Category → Rubric → Mode` 组织。
+4. 只有判断对象、证据来源或归责路径不同才拆 Rubric；同根因只保留最具体归责。
+5. 为每条规则补适用前提、排除条件、证据要求、防误判和计数口径。
+6. 生成完整 Guide、标注 Prompt、精简训练 Prompt 和机器 Registry。
+7. 用常见、长尾、clean、边界和多问题样本校准，再冻结 Manifest 与 SHA-256。
+8. 新旧版本发生拆分、合并或语义变化时计算迁移成本；不能机械映射的标签重新 Review。
+
+完整规则见 `references/rubric-engineering.md`，冻结模板见 `assets/RUBRIC_VERSION_TEMPLATE.md`。
+
+### 什么时候从实验提取 Skill
+
+一条链路被重复执行、输入输出稳定、失败模式已知，并且有脚本或固定协议时，可以从 Run 中提取成 Skill：
+
+- 把可复用代码移出带日期的 Run，不再依赖历史工作目录；
+- 将主流程放进 `SKILL.md`，变体和验证锚点放进 `references/`；
+- 将重复操作变成脚本，并增加 smoke/self-test；
+- 固定运行时版本和配置合同，但不提交 Key、Session 或 Token；
+- 在 `verified-experiments.md` 中保留支撑该技能的实验、数据和已知限制；
+- 明确项目内 `data/skills/` 与外部 GitHub 仓库哪一边是唯一源码，以及如何同步。
+
+只有一次运行、规则仍在频繁变化或没有通过验证的流程，不应提前包装成 Skill。
 
 ## 安装与更新
 
@@ -166,13 +216,16 @@ experiment-log/
 │   ├── dataset-versioning.md       # 数据/模型版本合同
 │   ├── evaluation-reporting.md     # 评测、消融与根因分析
 │   ├── pipeline-traceability.md    # 多阶段调用、断点与成本
+│   ├── rubric-engineering.md       # Rubric 构造、冻结与迁移
+│   ├── skill-extraction.md         # 从实验提取可复用 Skill
 │   └── sync-audit.md               # 同步与审计规则
 ├── assets/
 │   ├── EXPERIMENT_LOG_TEMPLATE.md
 │   ├── EXPERIMENT_GUIDE_TEMPLATE.md
 │   ├── RUN_EXPERIMENT_TEMPLATE.md
 │   ├── DATA_VERSION_TEMPLATE.md
-│   └── EVALUATION_REPORT_TEMPLATE.md
+│   ├── EVALUATION_REPORT_TEMPLATE.md
+│   └── RUBRIC_VERSION_TEMPLATE.md
 └── agents/openai.yaml
 ```
 
